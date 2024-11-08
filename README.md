@@ -7,3 +7,7 @@ Program "Aplikasi Pemilihan Buku Berdasarkan Genre" adalah aplikasi berbasis Pyt
 # Fitur-fitur Aplikasi
 1. Pilihan genre buku
 2. Rekomendasi buku sesuai genre yang dipilih
+#Flowchart (Diagram alir)
+![Flowchart](https://github.com/user-attachments/assets/acc2642a-7957-4eec-aab1-c5e6f69da0ae)
+#Sitemap
+![Sitemap](https://github.com/user-attachments/assets/3eaf4904-6d99-4d30-a2c0-0eefc56a3c83)
