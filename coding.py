@@ -49,3 +49,20 @@ class AplikasiRekomendasiBuku:
 
         tk.Button(self.halaman_login, text="Login", command=self.login).pack(pady=5)
         tk.Button(self.halaman_login, text="Sign Up", command=self.buka_halaman_signup).pack(pady=5)
+        
+        # Halaman Sign Up
+        self.halaman_signup = tk.Frame(self.root)
+        
+        label_signup = tk.Label(self.halaman_signup, text="Sign Up", font=("Arial", 12))
+        label_signup.pack(pady=10)
+
+        tk.Label(self.halaman_signup, text="Username:").pack(pady=5)
+        self.username_entry_signup = tk.Entry(self.halaman_signup)
+        self.username_entry_signup.pack(pady=5)
+
+        tk.Label(self.halaman_signup, text="Password:").pack(pady=5)
+        self.password_entry_signup = tk.Entry(self.halaman_signup, show="*")
+        self.password_entry_signup.pack(pady=5)
+
+        tk.Button(self.halaman_signup, text="Sign Up", command=self.signup).pack(pady=5)
+        tk.Button(self.halaman_signup, text="Kembali ke Login", command=self.buka_halaman_login).pack(pady=5)
