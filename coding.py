@@ -104,3 +104,39 @@ class AplikasiRekomendasiBuku:
         
         self.tombol_selesai1 = tk.Button(self.halaman_satu_genre, text="Selesai", command=self.buka_halaman_terima_kasih)
         self.tombol_selesai1.pack(pady=5)
+
+        # Halaman pencarian dua genre
+        self.halaman_dua_genre = tk.Frame(self.root)
+        self.label_genre2_1 = tk.Label(self.halaman_dua_genre, text="Pilih Genre 1:")
+        self.label_genre2_1.pack(pady=5)
+
+        self.kombobox_genre2_1 = ttk.Combobox(self.halaman_dua_genre, values=self.genres)
+        self.kombobox_genre2_1.pack(pady=5)
+
+        self.label_genre2_2 = tk.Label(self.halaman_dua_genre, text="Pilih Genre 2:")
+        self.label_genre2_2.pack(pady=5)
+
+        self.kombobox_genre2_2 = ttk.Combobox(self.halaman_dua_genre, values=self.genres)
+        self.kombobox_genre2_2.pack(pady=5)
+
+        self.tombol_rekomendasi2 = tk.Button(self.halaman_dua_genre, text="Rekomendasikan Buku", command=self.rekomendasi_buku_dua_genre)
+        self.tombol_rekomendasi2.pack(pady=10)
+
+        self.area_hasil2 = tk.Text(self.halaman_dua_genre, wrap="word", height=10, width=40)
+        self.area_hasil2.pack(pady=10)
+        self.area_hasil2.config(state="disabled")
+
+        self.tombol_kembali2 = tk.Button(self.halaman_dua_genre, text="Kembali", command=self.kembali_ke_pilihan_genre)
+        self.tombol_kembali2.pack(pady=5)
+        
+        self.tombol_selesai2 = tk.Button(self.halaman_dua_genre, text="Selesai", command=self.buka_halaman_terima_kasih)
+        self.tombol_selesai2.pack(pady=5)
+
+         # Halaman terima kasih
+        self.halaman_terima_kasih = tk.Frame(self.root)
+    
+        label_terima_kasih = tk.Label(self.halaman_terima_kasih, text="Terima kasih telah menggunakan Aplikasi Pemilihan Buku Berdasarkan Genre", font=("Arial", 12))
+        label_terima_kasih.pack(pady=10)
+        
+        tombol_keluar = tk.Button(self.halaman_terima_kasih, text="Keluar", command=quit)
+        tombol_keluar.pack(pady=10)
