@@ -66,3 +66,41 @@ class AplikasiRekomendasiBuku:
 
         tk.Button(self.halaman_signup, text="Sign Up", command=self.signup).pack(pady=5)
         tk.Button(self.halaman_signup, text="Kembali ke Login", command=self.buka_halaman_login).pack(pady=5)
+        
+        # Halaman pemilihan jumlah genre
+        self.halaman_pilihan_genre = tk.Frame(self.root)
+        
+        label_pilihan_genre = tk.Label(self.halaman_pilihan_genre, text="Pilih Metode Pencarian Buku Berdasarkan Genre", font=("Arial", 12))
+        label_pilihan_genre.pack(pady=10)
+
+        self.tombol_satu_genre = tk.Button(self.halaman_pilihan_genre, text="Cari Buku Berdasarkan Satu Genre", command=self.buka_halaman_satu_genre)
+        self.tombol_satu_genre.pack(pady=5)
+
+        self.tombol_dua_genre = tk.Button(self.halaman_pilihan_genre, text="Cari Buku Berdasarkan Dua Genre", command=self.buka_halaman_dua_genre)
+        self.tombol_dua_genre.pack(pady=5)
+        
+        # Area untuk menampilkan rekomendasi terdahulu
+        self.area_hasil_terdahulu = tk.Text(self.halaman_pilihan_genre, wrap="word", height=10, width=50)
+        self.area_hasil_terdahulu.pack(pady=10)
+        self.area_hasil_terdahulu.config(state="disabled")
+
+        # Halaman pencarian satu genre
+        self.halaman_satu_genre = tk.Frame(self.root)
+        self.label_genre1 = tk.Label(self.halaman_satu_genre, text="Pilih Genre:")
+        self.label_genre1.pack(pady=5)
+
+        self.kombobox_genre1 = ttk.Combobox(self.halaman_satu_genre, values=self.genres)
+        self.kombobox_genre1.pack(pady=5)
+
+        self.tombol_rekomendasi1 = tk.Button(self.halaman_satu_genre, text="Rekomendasikan Buku", command=self.rekomendasi_buku_satu_genre)
+        self.tombol_rekomendasi1.pack(pady=10)
+
+        self.area_hasil1 = tk.Text(self.halaman_satu_genre, wrap="word", height=10, width=40)
+        self.area_hasil1.pack(pady=10)
+        self.area_hasil1.config(state="disabled")
+
+        self.tombol_kembali1 = tk.Button(self.halaman_satu_genre, text="Kembali", command=self.kembali_ke_pilihan_genre)
+        self.tombol_kembali1.pack(pady=5)
+        
+        self.tombol_selesai1 = tk.Button(self.halaman_satu_genre, text="Selesai", command=self.buka_halaman_terima_kasih)
+        self.tombol_selesai1.pack(pady=5)
