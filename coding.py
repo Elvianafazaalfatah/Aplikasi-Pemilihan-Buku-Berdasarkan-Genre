@@ -140,3 +140,58 @@ class AplikasiRekomendasiBuku:
         
         tombol_keluar = tk.Button(self.halaman_terima_kasih, text="Keluar", command=quit)
         tombol_keluar.pack(pady=10)
+        
+        
+    def buka_halaman_login(self):
+        self.halaman_awal.pack_forget()
+        
+        self.halaman_login.pack(fill="both", expand=True)
+        
+    def login(self):
+        username = self.username_entry_login.get()
+        password = self.password_entry_login.get()
+
+        # Verifikasi data pengguna
+        with open(self.user_data_file, mode='r') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                if row['username'] == username and row['password'] == password:
+                    self.current_user = username
+                    messagebox.showinfo("Info", "Log in berhasil!")
+                    self.halaman_login.pack_forget()
+                    self.halaman_pilihan_genre.pack(fill="both", expand=True)
+                    return
+                # Panggil fungsi untuk melihat rekomendasi terdahulu
+                    self.lihat_rekomendasi_terdahulu()
+                    return
+        
+        messagebox.showerror("Error", "Username atau password salah.\nSilahkan Sign Up jika belum memiliki akun")
+        
+    def buka_halaman_signup(self):
+        self.halaman_login.pack_forget()
+        self.halaman_signup.pack(fill="both", expand=True)
+
+    def signup(self):
+        username = self.username_entry_signup.get()
+        password = self.password_entry_signup.get()
+        
+        if not username or not password:
+            messagebox.showwarning("Peringatan", "Silakan masukkan username dan password.")
+            return
+        
+        # Cek apakah username sudah ada
+        with open(self.user_data_file, mode='r') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                if row['username'] == username:
+                    messagebox.showerror("Error", "Username sudah terdaftar. Silakan pilih username lain.")
+                    return
+        
+        # Menyimpan data pengguna baru
+        with open(self.user_data_file, mode='a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow([username, password])
+        
+        messagebox.showinfo("Info", "Registrasi berhasil. Silakan login.")
+        self.halaman_signup.pack_forget()
+        self.halaman_login.pack(fill="both", expand=True)
