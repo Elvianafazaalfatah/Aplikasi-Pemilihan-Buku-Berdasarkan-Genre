@@ -283,3 +283,221 @@ class AplikasiRekomendasiBuku:
         
         self.tombol_keluar.bind("<Enter>", lambda event: self.tombol_keluar.config(bg="#9ea7fa"))
         self.tombol_keluar.bind("<Leave>", lambda event: self.tombol_keluar.config(bg="#ffffff"))
+        
+        
+        
+    def buka_halaman_login(self):
+        self.halaman_awal.pack_forget()
+        self.halaman_login.pack(fill="both", expand=True)
+        
+    def login(self):
+        username = self.username_entry_login.get()
+        password = self.password_entry_login.get()
+
+        # Verifikasi data pengguna
+        with open(self.user_data_file, mode='r') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                if row['username'] == username and row['password'] == password:
+                    self.current_user = username
+                    messagebox.showinfo("Info", "Log in berhasil!")
+                    self.halaman_login.pack_forget()
+                    self.halaman_pilihan_genre.pack(fill="both", expand=True)
+                    return
+                # Panggil fungsi untuk melihat rekomendasi terdahulu
+                    self.lihat_rekomendasi_terdahulu()
+                    return
+        
+        messagebox.showerror("Error", "Username atau password salah.\nSilakan Sign Up jika belum memiliki akun")
+        
+    def buka_halaman_signup(self):
+        self.halaman_login.pack_forget()
+        self.halaman_signup.pack(fill="both", expand=True)
+
+    def signup(self):
+        username = self.username_entry_signup.get()
+        password = self.password_entry_signup.get()
+        
+        if not username or not password:
+            messagebox.showwarning("Peringatan", "Silakan masukkan username dan password.")
+            return
+        
+        # Cek apakah username sudah ada
+        with open(self.user_data_file, mode='r') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                if row['username'] == username:
+                    messagebox.showerror("Error", "Username sudah terdaftar. Silakan pilih username lain.")
+                    return
+        
+        # Menyimpan data pengguna baru
+        with open(self.user_data_file, mode='a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow([username, password])
+        
+        messagebox.showinfo("Info", "Registrasi berhasil. Silakan login.")
+        self.halaman_signup.pack_forget()
+        self.halaman_login.pack(fill="both", expand=True)
+        
+    
+    def muatan_buku(self):
+        """Memuat data buku dari file CSV."""
+        self.books_df = pd.read_csv('resource/books.csv', encoding='ISO-8859-1')
+        self.genres = self.books_df['genre'].unique().tolist()
+        unique_genres = set()
+        for genres in self.books_df['genre']:
+            for genre in genres.split(', '):
+                unique_genres.add(genre)
+
+        self.genres = list(unique_genres)
+
+    def buka_pilihan_genre(self):
+        # Sembunyikan halaman login
+        self.halaman_login.pack_forget()
+        self.halaman_signup.pack_forget()
+        # Tampilkan halaman pilihan genre
+        self.halaman_pilihan_genre.pack(fill="both", expand=True)
+
+    def buka_halaman_satu_genre(self):
+        # Sembunyikan halaman pilihan genre
+        self.halaman_pilihan_genre.pack_forget()
+        # Tampilkan halaman satu genre
+        self.halaman_satu_genre.pack(fill="both", expand=True)
+
+    def buka_halaman_dua_genre(self):
+        # Sembunyikan halaman pilihan genre
+        self.halaman_pilihan_genre.pack_forget()
+        # Tampilkan halaman dua genre
+        self.halaman_dua_genre.pack(fill="both", expand=True)
+
+    def kembali_ke_pilihan_genre(self):
+        # Sembunyikan halaman pencarian genre (baik satu atau dua)
+        self.halaman_satu_genre.pack_forget()
+        self.halaman_dua_genre.pack_forget()
+        
+        # Tampilkan halaman pilihan genre
+        self.halaman_pilihan_genre.pack(fill="both", expand=True)
+        
+        # Panggil fungsi untuk melihat rekomendasi terdahulu
+        self.lihat_rekomendasi_terdahulu()
+
+
+    def rekomendasi_buku_satu_genre(self):
+        genre1 = self.kombobox_genre1.get()
+
+        if not genre1:
+            messagebox.showwarning("Peringatan", "Silakan pilih satu genre.")
+            return
+
+        # Filter buku berdasarkan genre1
+        buku_terfilter = self.books_df[self.books_df['genre'] == genre1]
+
+        # Tampilkan hasil rekomendasi
+        self.tampilkan_hasil(self.area_hasil1, buku_terfilter)
+        
+
+    def rekomendasi_buku_dua_genre(self):
+        genre1 = self.kombobox_genre2_1.get()
+        genre2 = self.kombobox_genre2_2.get()
+
+        if not genre1 or not genre2:
+            messagebox.showwarning("Peringatan", "Silakan pilih dua genre.")
+            return
+
+        # Filter buku berdasarkan genre1 dan genre2
+        buku_terfilter = self.books_df[self.books_df['genre'].str.contains(genre1) & self.books_df['genre'].str.contains(genre2)]
+
+        # Tampilkan hasil rekomendasi
+        self.tampilkan_hasil(self.area_hasil2, buku_terfilter)
+        
+        
+    def tampilkan_hasil(self, area_hasil, buku_terfilter):
+        area_hasil.config(state="normal")
+        area_hasil.delete(1.0, "end")
+
+        if buku_terfilter.empty:
+            area_hasil.insert("end", "Tidak ada buku yang cocok dengan genre yang dipilih.")
+        else:
+            for _, row in buku_terfilter.iterrows():
+                area_hasil.insert(
+         "end",
+        f"Judul     : {row['title']}\n"
+        f"Penulis   : {row['author']}\n"
+        f"Genre     : {row['genre']}\n\n"
+    )
+
+        area_hasil.config(state="disabled")
+        # simpan hasil rekomendasi ke CSV
+        self.simpan_rekomendasi(buku_terfilter, 'rekomendasi_buku.csv')
+        
+    def buka_halaman_riwayat(self):
+        # Sembunyikan halaman 
+        self.halaman_awal.pack_forget()
+        self.halaman_satu_genre.pack_forget()
+        self.halaman_dua_genre.pack_forget()
+        self.halaman_pilihan_genre.pack_forget()
+        
+        # Tampilkan halaman riwayat
+        self.halaman_riwayat.pack(fill="both", expand=True)
+        
+        
+
+    def simpan_rekomendasi(self, buku_terfilter, filename):
+        """Simpan hasil rekomendasi ke file CSV, termasuk username pengguna."""
+        if buku_terfilter.empty or not self.current_user:
+            return
+        
+        #mengecek file sudah tersedia atau belum
+        file_baru = not os.path.exists(filename)
+        
+        with open(filename, mode='a', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            if file_baru:
+                writer.writerow(['username', 'title', 'author', 'genre'])
+            for _, row in buku_terfilter.iterrows():
+                writer.writerow([self.current_user, row['title'], row['author'], row['genre']])
+                
+        print(f"Rekomendasi disimpan untuk pengguna{self.current_user}")
+                
+    def lihat_rekomendasi_terdahulu(self):
+        """Menampilkan rekomendasi buku sebelumnya berdasarkan username pengguna."""
+        if not os.path.exists('rekomendasi_buku.csv'):
+            return  
+        rekomendasi_terdahulu = []
+
+        # Baca file rekomendasi dan filter berdasarkan username
+        with open('rekomendasi_buku.csv', mode='r', encoding='utf-8') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                if row['username'] == self.current_user:
+                    rekomendasi_terdahulu.append(f"Judul: {row['title']}, Penulis: {row['author']}, Genre: {row['genre']}")
+
+        # Tampilkan hasil di area teks halaman riwayat
+        self.hasil_riwayat_buku.config(state="normal")
+        self.hasil_riwayat_buku.delete(1.0, "end")
+
+        if rekomendasi_terdahulu:
+            self.hasil_riwayat_buku.insert("end", "Rekomendasi Sebelumnya:\n\n")
+            self.hasil_riwayat_buku.insert("end", "\n".join(rekomendasi_terdahulu))
+        else:
+            self.hasil_riwayat_buku.insert("end", "Belum ada rekomendasi sebelumnya untuk pengguna ini.")
+
+        self.hasil_riwayat_buku.config(state="disabled")
+        
+    def buka_halaman_terima_kasih(self):
+        # Sembunyikan halaman 
+        self.halaman_awal.pack_forget()
+        self.halaman_satu_genre.pack_forget()
+        self.halaman_dua_genre.pack_forget()
+        self.halaman_pilihan_genre.pack_forget()
+        self.halaman_riwayat.pack_forget()
+        
+        # Tampilkan halaman terima kasih
+        self.halaman_terima_kasih.pack(fill="both", expand=True)
+    
+    
+# Menjalankan aplikasi
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = AplikasiRekomendasiBuku(root)
+    root.mainloop()        
