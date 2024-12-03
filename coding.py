@@ -30,7 +30,7 @@ class AplikasiRekomendasiBuku:
         # Memuat dan mengatur gambar latar belakang
         screen_width = root.winfo_screenwidth()
         screen_height = root.winfo_screenheight()
-        bg_awal = Image.open("tubes2/resource/halaman utama.png")
+        bg_awal = Image.open("resource/halaman utama.png")
         bg_awal = bg_awal.resize((screen_width, screen_height), Image.LANCZOS)
         self.bg_image_awal = ImageTk.PhotoImage(bg_awal)
         
@@ -66,7 +66,7 @@ class AplikasiRekomendasiBuku:
         # Halaman Sign Up dan Login
         self.halaman_login = tk.Frame(self.root)
         
-        bg_login = Image.open("tubes2/resource/halaman login.png")
+        bg_login = Image.open("resource/halaman login.png")
         bg_login = bg_login.resize((screen_width, screen_height), Image.LANCZOS)
         self.bg_image_login = ImageTk.PhotoImage(bg_login)
         
@@ -103,7 +103,7 @@ class AplikasiRekomendasiBuku:
         # Halaman Sign Up
         self.halaman_signup = tk.Frame(self.root)
         
-        bg_signup = Image.open("tubes2/resource/halaman signup.png")
+        bg_signup = Image.open("resource/halaman signup.png")
         bg_signup = bg_signup.resize((screen_width, screen_height), Image.LANCZOS)
         self.bg_image_signup = ImageTk.PhotoImage(bg_signup)
         
@@ -135,7 +135,7 @@ class AplikasiRekomendasiBuku:
         # Halaman pemilihan jumlah genre
         self.halaman_pilihan_genre = tk.Frame(self.root)
         
-        bg_pilihan = Image.open("tubes2/resource/halaman pilihan.png")
+        bg_pilihan = Image.open("resource/halaman pilihan.png")
         bg_pilihan = bg_pilihan.resize((screen_width, screen_height), Image.LANCZOS)
         self.bg_image_pilihan = ImageTk.PhotoImage(bg_pilihan)
         
@@ -160,7 +160,7 @@ class AplikasiRekomendasiBuku:
         # Halaman pencarian satu genre
         self.halaman_satu_genre = tk.Frame(self.root)
         
-        bg_satugenre = Image.open("tubes2/resource/halaman satu genre.png")
+        bg_satugenre = Image.open("resource/halaman satu genre.png")
         bg_satugenre = bg_satugenre.resize((screen_width, screen_height), Image.LANCZOS)
         self.bg_image_satugenre = ImageTk.PhotoImage(bg_satugenre)
         
@@ -198,7 +198,7 @@ class AplikasiRekomendasiBuku:
         # Halaman pencarian dua genre
         self.halaman_dua_genre = tk.Frame(self.root)
         
-        bg_duagenre = Image.open("tubes2/resource/halaman dua genre.png")
+        bg_duagenre = Image.open("resource/halaman dua genre.png")
         bg_duagenre = bg_duagenre.resize((screen_width, screen_height), Image.LANCZOS)
         self.bg_image_duagenre = ImageTk.PhotoImage(bg_duagenre)
         
@@ -243,7 +243,7 @@ class AplikasiRekomendasiBuku:
         # Halaman Riwayat
         self.halaman_riwayat = tk.Frame(self.root)
         
-        bg_riwayat = Image.open("tubes2/resource/halaman riwayat.png")
+        bg_riwayat = Image.open("resource/halaman riwayat.png")
         bg_riwayat = bg_riwayat.resize((screen_width, screen_height), Image.LANCZOS)
         self.bg_image_riwayat = ImageTk.PhotoImage(bg_riwayat)
         
@@ -267,7 +267,7 @@ class AplikasiRekomendasiBuku:
         # Halaman terima kasih
         self.halaman_terima_kasih = tk.Frame(self.root)
         
-        bg_terimakasih = Image.open("tubes2/resource/halaman terima kasih.png")
+        bg_terimakasih = Image.open("resource/halaman terima kasih.png")
         bg_terimakasih = bg_terimakasih.resize((screen_width, screen_height), Image.LANCZOS)
         self.bg_image_terimakasih = ImageTk.PhotoImage(bg_terimakasih)
         
