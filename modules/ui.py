@@ -6,7 +6,7 @@ import csv
 import os
 
 class AplikasiRekomendasiBuku:
-    def _init_(self, root):
+    def __init__(self, root):
         self.root = root
         self.current_user = None
         self.root.title("Aplikasi Rekomendasi Buku")
