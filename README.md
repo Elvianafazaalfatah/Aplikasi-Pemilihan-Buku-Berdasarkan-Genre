@@ -14,4 +14,10 @@ Diagram alir tersebut menggambarkan proses aplikasi yang memungkinkan pengguna m
 # Sitemap
 ![Sitemap](https://github.com/user-attachments/assets/3eaf4904-6d99-4d30-a2c0-0eefc56a3c83)
 ![SITEMAP REV](https://github.com/user-attachments/assets/aa83eff9-d3da-4dfd-9803-61cd229d29ab)
+# Library 
+1. Pandas
+2. Tkinter
+3. PIL
+4. csv
+5. os
 
